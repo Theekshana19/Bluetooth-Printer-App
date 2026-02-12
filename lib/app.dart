@@ -18,8 +18,9 @@ class BluetoothPrinterApp extends ConsumerWidget {
         useMaterial3: true,
       ),
       home: size.width == 0 || size.height == 0
-          ? const Scaffold(
-              body: Center(child: CircularProgressIndicator()),
+          ? Scaffold(
+              backgroundColor: Theme.of(context).colorScheme.surface,
+              body: const Center(child: CircularProgressIndicator()),
             )
           : prefsAsync.when(
               data: (_) => const HomeScreen(),
