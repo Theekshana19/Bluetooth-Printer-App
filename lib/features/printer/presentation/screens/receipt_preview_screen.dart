@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../receipt/receipt_generator.dart';
-import '../../domain/entities/order.dart';
 import '../providers/printer_provider.dart';
 
 class ReceiptPreviewScreen extends ConsumerWidget {

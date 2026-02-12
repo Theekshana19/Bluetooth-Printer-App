@@ -43,10 +43,10 @@ class ReceiptGenerator {
     bytes.addAll(
       generator.row(
         [
-          const PosColumn(text: 'QTY', width: 2, styles: PosStyles(bold: true)),
-          const PosColumn(text: 'ITEM', width: 5, styles: PosStyles(bold: true)),
-          const PosColumn(text: 'PRICE', width: 2, styles: PosStyles(bold: true)),
-          const PosColumn(text: 'TOTAL', width: 3, styles: PosStyles(bold: true)),
+          PosColumn(text: 'QTY', width: 2, styles: const PosStyles(bold: true)),
+          PosColumn(text: 'ITEM', width: 5, styles: const PosStyles(bold: true)),
+          PosColumn(text: 'PRICE', width: 2, styles: const PosStyles(bold: true)),
+          PosColumn(text: 'TOTAL', width: 3, styles: const PosStyles(bold: true)),
         ],
       ),
     );
@@ -69,7 +69,7 @@ class ReceiptGenerator {
     bytes.addAll(
       generator.row(
         [
-          const PosColumn(text: 'Subtotal:', width: 8),
+          PosColumn(text: 'Subtotal:', width: 8),
           PosColumn(
             text: '\$${order.subtotal.toStringAsFixed(2)}',
             width: 4,
@@ -81,7 +81,7 @@ class ReceiptGenerator {
     bytes.addAll(
       generator.row(
         [
-          const PosColumn(text: 'Discount:', width: 8),
+          PosColumn(text: 'Discount:', width: 8),
           PosColumn(
             text: '-\$${order.discount.toStringAsFixed(2)}',
             width: 4,
@@ -93,7 +93,7 @@ class ReceiptGenerator {
     bytes.addAll(
       generator.row(
         [
-          const PosColumn(text: 'Total:', width: 8, styles: PosStyles(bold: true)),
+          PosColumn(text: 'Total:', width: 8, styles: const PosStyles(bold: true)),
           PosColumn(
             text: '\$${order.total.toStringAsFixed(2)}',
             width: 4,

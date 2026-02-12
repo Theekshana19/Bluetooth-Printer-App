@@ -23,7 +23,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.example.bluetooth_printer_app"
+    namespace "com.bluetoothprinter.app"
     compileSdk 34
     ndkVersion flutter.ndkVersion
 
@@ -37,8 +37,8 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.bluetooth_printer_app"
-        minSdkVersion 21
+        applicationId "com.bluetoothprinter.app"
+        minSdkVersion flutter.minSdkVersion
         targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

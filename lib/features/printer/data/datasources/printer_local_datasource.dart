@@ -1,7 +1,6 @@
+import 'package:bluetooth_printer_app/core/constants/app_constants.dart';
+import 'package:bluetooth_printer_app/features/printer/domain/entities/printer_device.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../core/constants/app_constants.dart';
-import '../../domain/entities/printer_device.dart';
 
 /// Local datasource for persisting last connected printer.
 class PrinterLocalDatasource {

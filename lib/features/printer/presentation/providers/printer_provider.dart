@@ -1,10 +1,11 @@
 import 'dart:async';
 
+import 'package:bluetooth_printer_app/core/utils/logger_util.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:thermal_printer/thermal_printer.dart';
 
+import '../../data/bt_status.dart';
 import '../../data/datasources/printer_local_datasource.dart';
 import '../../data/datasources/printer_remote_datasource.dart';
 import '../../data/repositories/printer_repository_impl.dart';
@@ -16,7 +17,6 @@ import '../../domain/usecases/disconnect_printer_use_case.dart';
 import '../../domain/usecases/print_receipt_use_case.dart';
 import '../../domain/usecases/save_last_printer_use_case.dart';
 import '../../domain/usecases/scan_devices_use_case.dart';
-import '../../../core/utils/logger_util.dart';
 
 /// Connection state for the printer.
 enum PrinterConnectionState {
@@ -81,12 +81,12 @@ class PrinterNotifier extends StateNotifier<PrinterState> {
   final AutoReconnectUseCase _autoReconnectUseCase;
   final PrinterRepositoryImpl _repository;
 
-  StreamSubscription<BTStatus>? _btSubscription;
+  StreamSubscription? _btSubscription;
 
   void _listenToBluetoothState() {
     _btSubscription = _repository.watchBluetoothState().listen((status) {
       LoggerUtil.log('BTStatus: $status');
-      if (status == BTStatus.none || status == BTStatus.stopScanning) {
+      if (status == BtStatus.none || status == BtStatus.stopScanning) {
         if (state.connectionState != PrinterConnectionState.connecting &&
             state.connectionState != PrinterConnectionState.printing) {
           state = state.copyWith(
@@ -95,7 +95,7 @@ class PrinterNotifier extends StateNotifier<PrinterState> {
             errorMessage: null,
           );
         }
-      } else if (status == BTStatus.connected) {
+      } else if (status == BtStatus.connected) {
         state = state.copyWith(
           connectionState: PrinterConnectionState.connected,
           errorMessage: null,
