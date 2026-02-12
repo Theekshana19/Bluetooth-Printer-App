@@ -9,6 +9,7 @@ class BluetoothPrinterApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final prefsAsync = ref.watch(sharedPreferencesProvider);
+    final size = MediaQuery.sizeOf(context);
 
     return MaterialApp(
       title: 'Bluetooth Printer',
@@ -16,15 +17,19 @@ class BluetoothPrinterApp extends ConsumerWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: prefsAsync.when(
-        data: (_) => const HomeScreen(),
-        loading: () => const Scaffold(
-          body: Center(child: CircularProgressIndicator()),
-        ),
-        error: (e, _) => Scaffold(
-          body: Center(child: Text('Error: $e')),
-        ),
-      ),
+      home: size.width == 0 || size.height == 0
+          ? const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            )
+          : prefsAsync.when(
+              data: (_) => const HomeScreen(),
+              loading: () => const Scaffold(
+                body: Center(child: CircularProgressIndicator()),
+              ),
+              error: (e, _) => Scaffold(
+                body: Center(child: Text('Error: $e')),
+              ),
+            ),
     );
   }
 }
