@@ -20,9 +20,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    // Defer Bluetooth work so UI shows first; avoids hang/NO_INPUT_CHANNEL on cold start.
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(printerNotifierProvider.notifier).loadLastDevice();
-      ref.read(printerNotifierProvider.notifier).autoReconnect();
+      Future.delayed(const Duration(milliseconds: 300), () {
+        if (!mounted) return;
+        ref.read(printerNotifierProvider.notifier).loadLastDevice();
+        ref.read(printerNotifierProvider.notifier).autoReconnect();
+      });
     });
   }
 

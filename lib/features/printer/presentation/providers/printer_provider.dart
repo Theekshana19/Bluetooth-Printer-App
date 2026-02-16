@@ -70,7 +70,8 @@ class PrinterNotifier extends StateNotifier<PrinterState> {
       this._printUseCase, this._saveLastPrinterUseCase, this._autoReconnectUseCase,
       this._repository)
     : super(const PrinterState()) {
-    _listenToBluetoothState();
+    // Defer BT state listener so app window/input channel can attach first.
+    Future.delayed(const Duration(milliseconds: 400), _listenToBluetoothState);
   }
 
   final ScanDevicesUseCase _scanUseCase;
